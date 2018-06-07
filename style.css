@@ -1,0 +1,77 @@
+body {
+	background-color: #CFD0CF;
+}
+h1 {
+	font-size: 42px;
+	line-height: 47px;
+	font-family: Arial;
+	text-align: center;
+	color: #434344;
+}
+section {
+	width: 645px;
+	margin: 0 auto;
+}
+ul {
+	list-style-type: none;
+	margin: 0 auto;
+	padding-left: 25px;
+	width: 100%;
+}
+li {
+	display: inline-block;
+	width: 130px;
+	height: 130px;
+	margin-bottom: 25px;
+	margin-right: 25px;
+	position: relative;
+	cursor: pointer;
+	perspective: 600px;
+}
+.shirt {
+	background-image: linear-gradient(to right top, #22AB93, #19668D);
+	height: 100%;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 5px solid #fff;
+	border-radius: 9px;
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*transform: matrix3d(.3, 0, .3, 0,
+											0, 1, 0, 0,
+											0, 0, 1, 0,
+											0, 0, 0, 1);*/
+}
+.emotion {
+	font-size: 75px;
+	line-height: 120px;
+	text-align: center;
+	background-color: #fff;
+	height: 100%;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 5px solid #fff;
+	border-radius: 9px;
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*transform: matrix3d(-1, 0,  0, 0,
+											 0, 1,  0, 0,
+											 0, 0, -1, 0,
+											 0, 0,  0, 1);*/
+}
+.zIndex1 {
+	z-index: 1;
+}
+.zIndex0 {
+	z-index: 0;
+}
