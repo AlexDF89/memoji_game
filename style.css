@@ -62,3 +62,14 @@ li div {
 li.open {
 	transform: rotateY(180deg);
 }
+li.freeze .emotion {
+	background-color: #5AD66F;
+	border: 5px solid #5AD66F;
+}
+li.freezeErr .emotion {
+	background-color: #F44336;
+	border: 5px solid #F44336;
+}
+li.opened {
+	transform: rotateY(180deg);
+}
