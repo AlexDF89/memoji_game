@@ -132,6 +132,7 @@ li.opened {
 	line-height: 40px;
 	padding-right: 30px;
 	text-decoration: none;
+	border-radius: 9px;
 	background-image: linear-gradient(to right, #19668D, #22AB93);
 	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.5);
 	box-shadow: 1px 1px 1px rgba(0,0,0,.5);
