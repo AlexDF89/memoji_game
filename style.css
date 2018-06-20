@@ -88,6 +88,7 @@ li.opened {
 	text-align: center;
 	margin-top: 5px;
 	font-size: 32px;
+	line-height: 36px;
 	font-family: Arial;
 	color: #434344;
 	font-weight: bold;
@@ -130,9 +131,14 @@ li.opened {
 	display: inline-block;
 	line-height: 40px;
 	padding-right: 30px;
-	border-radius: 9px;
 	text-decoration: none;
 	background-image: linear-gradient(to right, #19668D, #22AB93);
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.5);
+	box-shadow: 1px 1px 1px rgba(0,0,0,.5);
+}
+.windowWin a:active, .windowLose a:active {
+	-webkit-box-shadow: inset 2px 1px 8px rgba(0,0,0,.5);
+	box-shadow: inset 2px 1px 8px rgba(0,0,0,.5);
 }
 
 .win, .lose {
