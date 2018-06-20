@@ -2,7 +2,6 @@
 
 window.onload = function() {
 
-
 	/***************************************************************************/
 	function Game(params) {
 		this.images = ['&#128054;','&#128049;','&#128045;','&#128057;','&#128048;','&#128059;','&#128060;','&#128040;','&#128047;','&#129409;','&#128046;','&#128055;','&#128056;','&#128025;','&#128053;','&#129412;','&#128030;','&#129408;','&#128031;','&#128010;','&#128019;','&#129411;','&#128063;'];
@@ -17,9 +16,7 @@ window.onload = function() {
 		this.createField().createTimer();
 
 		this.field.addEventListener('click', this.handler(this), true);
-
 	}
-
 
 	//Обработать клик по карте
 	Game.prototype.handler = function(arg) {
@@ -36,7 +33,6 @@ window.onload = function() {
 			}
 		}
 	}
-
 
 	//Перетасовать колоду и получить массив необходимого количества карт
 	Game.prototype.shuffle = function(elements, resultArrLength) {
@@ -205,11 +201,8 @@ window.onload = function() {
 
 		win.addEventListener('click', this.restartGame(this));
 
-		this.flipLetters('win');
-
 		return this;
 	}
-
 
 	//Создать окно проигрыша и добавить его в DOM
 	Game.prototype.createWindowLose = function() {
@@ -238,21 +231,7 @@ window.onload = function() {
 		var lose = document.getElementById('btnLose');
 		lose.addEventListener('click', this.restartGame(this));
 
-		this.flipLetters('lose');
-
 		return this;
-	}
-
-	Game.prototype.flipLetters = function(CssClass) {
-		var spansLose = document.querySelectorAll('.' + CssClass);
-		var count = 0;
-		this.interval = setInterval(function() {
-			spansLose[count].classList.toggle('scaleUp');
-			count++;
-			if (count === spansLose.length) {
-				count = 0;
-			}
-		}, 150);
 	}
 
 	//Запустить таймер при первом клике на курту

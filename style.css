@@ -142,16 +142,25 @@ li.opened {
 	box-shadow: inset 2px 1px 8px rgba(0,0,0,.5);
 }
 
-.win, .lose {
-	display: inline-block;
-	-webkit-transition: all .7s ease-in-out;
-	-o-transition: all .7s ease-in-out;
-	transition: all .7s ease-in-out;
-	line-height: 1;
+.win:nth-child(1) {animation-delay: .0s;}
+.win:nth-child(2) {animation-delay: .1s;}
+.win:nth-child(3) {animation-delay: .2s;}
+.win:nth-child(4) {animation-delay: .3s;}
+.lose:nth-child(1) {animation-delay: .0s;}
+.lose:nth-child(2) {animation-delay: .1s;}
+.lose:nth-child(3) {animation-delay: .2s;}
+.lose:nth-child(4) {animation-delay: .3s;}
+
+@keyframes flipLetters {
+	from {
+		transform: scaleY(.5);
+	}
+	to {
+		transform: translateY(-20%) scaleY(1);
+	}
 }
-.scaleUp {
-	-webkit-transform: scaleY(1.7) translateY(-10px);
-	-ms-transform: scaleY(1.7) translateY(-10px);
-	-o-transform: scaleY(1.7) translateY(-10px);
-	transform: scaleY(1.7) translateY(-10px);
+.win, .lose {
+	animation: flipLetters .5s infinite alternate;
+	transform-origin: 0 80%;
+	display: inline-block;
 }
