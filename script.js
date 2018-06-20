@@ -1,23 +1,27 @@
-;window.onload = function() {
+;(function(){
+
+window.onload = function() {
+
 
 	/***************************************************************************/
 	function Game(params) {
 		this.images = ['&#128054;','&#128049;','&#128045;','&#128057;','&#128048;','&#128059;','&#128060;','&#128040;','&#128047;','&#129409;','&#128046;','&#128055;','&#128056;','&#128025;','&#128053;','&#129412;','&#128030;','&#129408;','&#128031;','&#128010;','&#128019;','&#129411;','&#128063;'];
 		this.idField = params.id;
+		this.field = document.getElementById(this.idField);
 		this.numberCardsField = this.getNumberCards(params.numberCards);
-		this.shuffledCards = shuffle(this.images, this.images.length);
+		this.shuffledCards = this.shuffle(this.images, this.images.length);
 		this.playingCards = this.createKitOfCards();
 		this.gameStart = false;
 		this.interval;
 
 		this.createField().createTimer();
 
-		var playingField = document.getElementById(this.idField);
-		playingField.addEventListener('click', this.handler(this), true);
+		this.field.addEventListener('click', this.handler(this), true);
 
 	}
 
 
+	//Обработать клик по карте
 	Game.prototype.handler = function(arg) {
 		var $this = arg;
 		return function(e) {
@@ -35,7 +39,7 @@
 
 
 	//Перетасовать колоду и получить массив необходимого количества карт
-	function shuffle(elements, resultArrLength) {
+	Game.prototype.shuffle = function(elements, resultArrLength) {
 		var result = [];
 		while (result.length !== resultArrLength) {
 			var randomNumber = Math.floor(Math.random() * resultArrLength);
@@ -47,7 +51,7 @@
 	}
 
 	//Создать элемент h2 каждый символ которого обернут в span
-	function createH2(word, CssClass) {
+	Game.prototype.createH2 = function(word, CssClass) {
 		var h2 = document.createElement('h2');
 		for (var i = 0; i < word.length; i++) {
 			var span = document.createElement('span');
@@ -107,7 +111,7 @@
 		var images = this.shuffledCards;
 		var resultArrLength = this.numberCardsField/2;
 		var result = [];
-		var cards = shuffle(images, resultArrLength);
+		var cards = this.shuffle(images, resultArrLength);
 		while (cards.length !== 0) {
 			var card = new Card(cards[cards.length - 1]);
 			card.kitId = cards.length - 1;
@@ -142,7 +146,7 @@
 			elements.push(this.createCardElement(images[i]));
 		}
 		while (result.length !== elements.length ) {
-			var i = shuffle(elements, this.numberCardsField);
+			var i = this.shuffle(elements, this.numberCardsField);
 			i = i[0];
 			if ((result.indexOf(i) === -1)) {
 				result.push(i);
@@ -153,24 +157,21 @@
 
 	//Заполнить поле картами
 	Game.prototype.createField = function() {
-		var field = document.getElementById(this.idField);
-		var playingCardsLength = this.playingCards.length;
 		this.playingCards.forEach(function(elem){
-			field.appendChild(elem);
+			this.field.appendChild(elem);
 		});
 		return this;
 	}
 
 	//Создать счетчик и добавить его в DOM и анимировать
 	Game.prototype.createTimer = function() {
-		var playingField = document.getElementById(this.idField);
-		var playingFieldParent = playingField.parentNode;
+		var playingFieldParent = this.field.parentNode;
 		var timer = document.createElement('div');
 		timer.classList.add('timer');
 		timer.id = 'timer';
 		var time = document.createTextNode('01:00');
 		timer.appendChild(time);
-		playingFieldParent.insertBefore(timer, playingField.nextSibling);
+		playingFieldParent.insertBefore(timer, this.field.nextSibling);
 
 		return this;
 	}
@@ -188,7 +189,7 @@
 		btnWin.setAttribute('href', 'javascript:void(0);');
 		btnWin.id = 'btnWin';
 
-		var h2Win = createH2('Win', 'win');
+		var h2Win = this.createH2('Win', 'win');
 
 		var textA = document.createTextNode('Play again');
 		btnWin.appendChild(textA);
@@ -204,15 +205,7 @@
 
 		win.addEventListener('click', this.restartGame(this));
 
-		var spansWin = document.querySelectorAll('.win');
-		var count = 0;
-		setInterval(function() {
-			spansWin[count].classList.toggle('scaleUp');
-			count++;
-			if (count === spansWin.length) {
-				count = 0;
-			}
-		}, 150);
+		this.flipLetters('win');
 
 		return this;
 	}
@@ -231,7 +224,7 @@
 		btnLose.setAttribute('href', 'javascript:void(0);');
 		btnLose.id = 'btnLose';
 
-		var h2Lose = createH2('Lose', 'lose');
+		var h2Lose = this.createH2('Lose', 'lose');
 
 		var textA = document.createTextNode('Try again');
 		btnLose.appendChild(textA);
@@ -245,28 +238,32 @@
 		var lose = document.getElementById('btnLose');
 		lose.addEventListener('click', this.restartGame(this));
 
-		var spansLose = document.querySelectorAll('.lose');
+		this.flipLetters('lose');
+
+		return this;
+	}
+
+	Game.prototype.flipLetters = function(CssClass) {
+		var spansLose = document.querySelectorAll('.' + CssClass);
 		var count = 0;
-		setInterval(function() {
+		this.interval = setInterval(function() {
 			spansLose[count].classList.toggle('scaleUp');
 			count++;
 			if (count === spansLose.length) {
 				count = 0;
 			}
 		}, 150);
-
-		return this;
 	}
 
-	//Запустить игру при первом клике на курту
+	//Запустить таймер при первом клике на курту
 	Game.prototype.start = function() {
 		var $this = this;
-		if (this.gameStart) {
-			return;
-		} else {
-			this.gameStart = true;
-			this.interval = setInterval(timer, 1000);
-		}
+
+		if (this.gameStart) return;
+			
+		this.gameStart = true;
+		this.interval = setInterval(timer, 1000);
+
 		function timer() {
 			var timer = document.getElementById('timer');
 			var text = timer.innerHTML;
@@ -287,19 +284,21 @@
 				}
 			}
 		}
+
+		return this;
 	}
 
+	//Перезапустить игру при проигрыше или выигрыше
 	Game.prototype.restartGame = function($this) {
 		return function(e) {
+			clearInterval(this.interval);
 			var win = document.getElementById('windowWinWrap');
 			if (win) win.parentNode.removeChild(win);			
 			var lose = document.getElementById('windowLoseWrap');
 			if (lose) lose.parentNode.removeChild(lose);
 			var timer = document.getElementById('timer');
 			if (timer) timer.parentNode.removeChild(timer);
-			var field = document.getElementById($this.idField);
-			var field = document.getElementById($this.idField);
-			field.parentNode.removeChild(field);
+			$this.field.parentNode.removeChild(field);
 
 			var newField = document.createElement('ul');
 			newField.id = $this.idField;
@@ -330,4 +329,6 @@
 		numberCards: 12
 	});
 
-};
+}
+
+})();
