@@ -308,6 +308,7 @@ window.onload = function() {
 		numberCards: 12
 	});
 
+
 }
 
 })();
