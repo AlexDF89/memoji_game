@@ -10,14 +10,14 @@
 		<div class="memoji-desc">
 			<p>В игре Memoji есть колода карточек с парными изображениями. Колода раскладывается в случайном порядке рубашкой вверх. Игрок может открывать 2 карточки за один ход. Если при открытии карт образовалась «парочка», она остаётся открытой. Игра продолжается, пока не будет открыто всё поле.</p>
 		</div>
-		<form action="game">
+		<form action="game" method="POST">
 			<label>
 				<p>Введите количество карт:</p>
 				<input type="text" name="numberOfCards" placeholder="Введите количество карт" value="12">
 			</label>
 			<label>
-				<p>Введите время на игру:</p>
-				<input type="text" name="timeOfGame" placeholder="Введите время" value="1:00">
+				<p>Введите время на игру в секундах:</p>
+				<input type="text" name="timeOfGame" placeholder="Введите время" value="60">
 			</label>
 			<button id="memojiBtn">Играть</button>
 		</form>

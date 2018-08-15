@@ -103,7 +103,7 @@ window.onload = function() {
 	}
 
 	//Получить набор карт для игры из перетасованной колоды
-	Game.prototype.getCardsOfField = function(images, resultArrLength) {
+	Game.prototype.getCardsOfField = function() {
 		var images = this.shuffledCards;
 		var resultArrLength = this.numberCardsField/2;
 		var result = [];
@@ -148,7 +148,7 @@ window.onload = function() {
 				result.push(i);
 			}
 		}
-		return result;		
+		return result;
 	}
 
 	//Заполнить поле картами
