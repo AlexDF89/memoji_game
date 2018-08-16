@@ -1,6 +1,6 @@
 const Game = require('./classes/Game');
-
-let game;
+const fs = require('fs');
+const path = require('path');
 
 function game(req, res, lib) {
 
@@ -10,9 +10,26 @@ function game(req, res, lib) {
 	req.on('data', data => body += data);
 	req.on('end', () => {
 		const data = lib.parseBody(body);
-		game = new Game(data);
-		res.writeHead(200, { 'Content-type': 'text/html' });
-		res.render('memoji_game.html');
+		const game = new Game(data);
+
+		fs.readFile(path.join(__dirname, '../allGames.json'), 'utf-8', (err, data) => {
+			if (err) {
+				res.writeHead(500, { 'Content-type': 'text/plain' });
+				res.end('Ошибка на сервере');
+			}
+			let allGames = JSON.parse(data);
+			allGames.push(game);
+			allGames = JSON.stringify(allGames);
+			fs.writeFile(path.join(__dirname, '../allGames.json'), allGames, error => {
+				res.writeHead(500, { 'Content-type': 'text/plain' });
+				res.end('Ошибка на сервере');				
+			});
+			res.writeHead(200, { 'Content-type': 'application/json' });
+			res.end(allGames);
+			//res.writeHead(200, { 'Content-type': 'text/html' });
+			//res.render('memoji_game.html', game);
+		});
+
 	});
 }
 

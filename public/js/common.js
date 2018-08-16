@@ -1,6 +1,6 @@
 window.onload = function() {
 
-	const url = "game";
+	const url = "123";
 	const request = new XMLHttpRequest();
 	request.open("POST", url, true);
 	request.send();
@@ -10,6 +10,6 @@ window.onload = function() {
 		}
 	}
 
-	const field = new Field(cardBlanks);
-	field.createField().createTimer();
+	//const field = new Field(cardBlanks);
+	//field.createField().createTimer();
 }
