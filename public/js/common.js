@@ -1,9 +1,12 @@
 window.onload = function() {
 
-	const url = "123";
+	const field = document.getElementById('field');
+	const gameID = field.dataset.gameId;
+
+	const url = "createField";
 	const request = new XMLHttpRequest();
 	request.open("POST", url, true);
-	request.send();
+	request.send(gameID);
 	request.onreadystatechange = function() {
 		if ( request.readyState == 4 ) {
 			console.log(request.responseText);

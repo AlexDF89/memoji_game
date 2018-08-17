@@ -18,16 +18,16 @@ function game(req, res, lib) {
 				res.end('Ошибка на сервере');
 			}
 			let allGames = JSON.parse(data);
-			allGames.push(game);
+			allGames[game.gameID] = game;
 			allGames = JSON.stringify(allGames);
 			fs.writeFile(path.join(__dirname, '../allGames.json'), allGames, error => {
 				res.writeHead(500, { 'Content-type': 'text/plain' });
 				res.end('Ошибка на сервере');				
 			});
-			res.writeHead(200, { 'Content-type': 'application/json' });
-			res.end(allGames);
-			//res.writeHead(200, { 'Content-type': 'text/html' });
-			//res.render('memoji_game.html', game);
+			//res.writeHead(200, { 'Content-type': 'application/json' });
+			//res.end(allGames);
+			res.writeHead(200, { 'Content-type': 'text/html' });
+			res.render('memoji_game.html', game);
 		});
 
 	});

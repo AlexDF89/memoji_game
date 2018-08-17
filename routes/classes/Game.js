@@ -10,7 +10,7 @@ class Game {
 
 		lib.getGameID((err, data) => {
 			if (err) throw new Error('Ошибка на сервере');
-			this.idGame = data;
+			this.gameID = data;
 		});
 
 	}
