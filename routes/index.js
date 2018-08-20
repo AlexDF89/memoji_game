@@ -1,13 +1,13 @@
 const public = require('./public'),
 			startPage = require('./startPage'),
 			game = require('./game'),
-			createField = require('./createField'),
+			getCardsOfField = require('./getCardsOfField'),
 			notFound = require('./notFound');
 
 module.exports = {
 	public,
 	startPage,
 	game,
-	createField,
+	getCardsOfField,
 	notFound
 };

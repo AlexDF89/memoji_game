@@ -26,7 +26,7 @@ function game(req, res, lib) {
 			});
 			//res.writeHead(200, { 'Content-type': 'application/json' });
 			//res.end(allGames);
-			res.writeHead(200, { 'Content-type': 'text/html' });
+			res.writeHead(200, { 'Content-type': 'text/html; charset=utf-8' });
 			res.render('memoji_game.html', game);
 		});
 

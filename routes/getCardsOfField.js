@@ -1,8 +1,7 @@
-const Field = require('./classes/Field');
 const fs = require('fs');
 const path = require('path');
 
-function createField(req, res, lib) {
+function getCardsOfField(req, res, lib) {
 	let gameID = '';
 
 	req.on('data', data => gameID += data);
@@ -13,11 +12,14 @@ function createField(req, res, lib) {
 				res.end('Ошибка на сервере');
 			}
 			let allGames = JSON.parse(data);
-			const field = new Field(allGames[gameID]);
-			field.createField();
+			allGames[gameID].playingCards.forEach( elem => {
+				delete elem.kitId;
+			});
+			res.writeHead(200, {'Content-Type': 'application/json'});
+			res.end(JSON.stringify(allGames[gameID]));
 		});
 	});
 
 }
 
-module.exports = createField;
+module.exports = getCardsOfField;

@@ -5,11 +5,26 @@
 	<title>Мемори. Курс 5 - "Разработка интерфейсов: финальный проект".</title>
 </head>
 <body>
+
+	<div class="windowWinWrap" id="windowWinWrap">
+		<div class="windowWin">
+			<h2><span class="win">W</span><span class="win">i</span><span class="win">n</span></h2>
+			<a href="javascript:void(0);" id="btnWin">Play again</a>
+		</div>
+	</div>
+
+	<div class="windowLoseWrap" id="windowLoseWrap">
+		<div class="windowLose">
+			<h2><span class="lose">L</span><span class="lose">o</span><span class="lose">s</span><span class="lose">e</span></h2>
+			<a href="javascript:void(0);" id="btnLose">Try again</a>
+		</div>
+	</div>
+
 	<h1>Memoji</h1>
 	<section>
 		<ul id="field" data-game-id="{{gameID}}">
-			{{Field}}
 		</ul>
+		<div class="timer" id="timer"></div>
 	</section>
 
 	<link rel="stylesheet" href="css/style.css">

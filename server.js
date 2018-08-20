@@ -1,7 +1,7 @@
 const http = require('http');
 
 const { render, lib, startGame } = require('./lib');
-const { public, startPage, game, createField,	notFound } = require('./routes');
+const { public, startPage, game, getCardsOfField,	notFound } = require('./routes');
 http.ServerResponse.prototype.render = render;
 
 http.createServer((req, res) => {
@@ -11,8 +11,8 @@ http.createServer((req, res) => {
 		startPage(req, res);
 	} else if (req.url === '/game') {
 		game(req, res, lib);
-	} else if (req.url === '/createField') {
-		createField(req, res, lib);
+	} else if (req.url === '/getCardsOfField') {
+		getCardsOfField(req, res, lib);
 	} else {
 		notFound(req, res);
 	}

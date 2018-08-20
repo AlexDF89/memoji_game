@@ -4,7 +4,7 @@ const lib = require('../../lib/lib');
 class Game {
 	constructor(params) {
 		this.numberCardsField = parseInt(this.getNumberCards(params.numberOfCards));
-		this.timeOfGame = params.timeOfGame;
+		this.timeOfGame = parseInt(params.timeOfGame);
 		this.gameStart = false;
 		this.playingCards = this.createKitOfCards();
 
@@ -46,7 +46,9 @@ class Game {
 		const result = [];
 		const elements = [];
 		for (let i = 0; i < images.length; i++) {
-			elements.push(this.cardBlank(images[i]));
+			const card = this.cardBlank(images[i]);
+			card.position = i;
+			elements.push(card);
 		}
 		while (result.length !== elements.length ) {
 			let i = Game.shuffle(elements, this.numberCardsField);
