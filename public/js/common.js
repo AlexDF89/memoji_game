@@ -17,7 +17,7 @@ window.onload = function() {
 	}
 }
 
-function createField(playingCards) {
+const createField = playingCards => {
 	const field = document.getElementById('field');
 	playingCards.forEach(elem => {
 		const li = createCardElement(elem);
@@ -25,7 +25,7 @@ function createField(playingCards) {
 	});
 
 }
-function createCardElement(cardBlank) {
+const createCardElement = cardBlank => {
 	const li = document.createElement('li');
 	const shirt = document.createElement('div');
 	shirt.classList.add('shirt');
@@ -38,7 +38,7 @@ function createCardElement(cardBlank) {
 	return li;
 }
 
-function createTimer(timeOfGame) {
+const createTimer = timeOfGame => {
 	const timer = document.getElementById('timer');
 	let minutes = Math.floor(timeOfGame/60);
 	if (minutes > 10) minutes = 10;
@@ -49,17 +49,29 @@ function createTimer(timeOfGame) {
 	timer.innerHTML = minutes + ':' + seconds;
 }
 
-function createHandler() {
+const createHandler = () => {
+
 	const field = document.getElementById('field');
+	const gameID = field.dataset.gameId;
+
 	field.addEventListener('click', function(e) {
+
 		const elem = e.target.parentNode;
+		const data = JSON.stringify([ elem.position, gameID ]);
+
 		if (elem.classList.contains('opened')) return;
 		if (elem.classList.contains('freezeErr')) return;
 		elem.classList.toggle('open');
-		console.log(e.target.parentNode);
-		console.log(e.target.parentNode.position);
 		const url = 'compareCards';
 		const request = new XMLHttpRequest();
+		request.open("POST", url, true);
+		request.send(data);
+		request.onreadystatechange = () => {
+			if ( request.readyState === 4 ) {
+				console.log(request.responseText);
+			}
+		}
+
 	});
 
 }
