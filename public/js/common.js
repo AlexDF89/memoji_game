@@ -61,6 +61,7 @@ const createHandler = () => {
 
 		if (elem.classList.contains('opened')) return;
 		if (elem.classList.contains('freezeErr')) return;
+		if (elem.classList.contains('open')) return;
 		elem.classList.toggle('open');
 		const url = 'compareCards';
 		const request = new XMLHttpRequest();
@@ -68,7 +69,32 @@ const createHandler = () => {
 		request.send(data);
 		request.onreadystatechange = () => {
 			if ( request.readyState === 4 ) {
-				console.log(request.responseText);
+				const response = JSON.parse(request.responseText);
+				let listLi;
+				switch (response[0]) {
+					case 'open':
+						break;
+
+					case 'freeze':
+						listLi = field.querySelectorAll('li');
+						listLi.forEach(val => {
+							if (val.position === response[1] || val.position === response[2]) {
+								val.classList.add('freeze', 'opened');
+								val.classList.remove('open');
+							}
+						});						
+						break;
+
+					case 'freezeErr':
+						if (response.length === 3) break;
+						listLi = field.querySelectorAll('li');
+						listLi.forEach(val => {
+							if (val.classList.contains('open') && val !== elem) {
+								val.classList.remove('freezeErr','open');
+							}
+						});
+						break;
+				}
 			}
 		}
 

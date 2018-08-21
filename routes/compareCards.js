@@ -14,46 +14,58 @@ function compareCards (req, res, lib) {
 			let allGames = JSON.parse(file);
 
 			data = JSON.parse(data);
+			const gameID = data[1];
+			const positionCard = data[0];
 
-			const game = allGames[data[1]];
+
+			const game = allGames[gameID];
 			const openedCards = [];
 
 			game.playingCards.forEach((elem, i) => {
-				if (elem.position === data[0]) {
+				if (elem.position === positionCard) {
 					elem.open = true;
 				}
 				if (elem.open === true) openedCards.push(elem);
 			});
 
-			console.log(openedCards.length);
+			let responseData = [];
 
 			switch (openedCards.length) {
 				case 1:
-					res.writeHead(200, {'Content-Type': 'application/json'});
-					res.end(['open']);
+					res.setHeader('Content-Type', 'application/json');
+					responseData = ['open'];
+					res.end(JSON.stringify(responseData));
 					break;
 
 				case 2:
 					if (openedCards[0].kitId === openedCards[1].kitId) {
-						res.writeHead(200, {'Content-Type': 'application/json'});
-						const data = ['freeze', openedCards[0].position, openedCards[1].position];
-						res.end(JSON.stringify(data));
+						openedCards[0].open = 'freeze';
+						openedCards[1].open = 'freeze';
+						res.setHeader('Content-Type', 'application/json');
+						responseData = ['freeze', openedCards[0].position, openedCards[1].position];
+						res.end(JSON.stringify(responseData));
 					} else {
-						res.writeHead(200, {'Content-Type': 'application/json'});
-						const data = ['freezeErr', openedCards[0].position, openedCards[1].position];
-						res.end(JSON.stringify(data));
+						res.setHeader('Content-Type', 'application/json');
+						responseData = ['freezeErr', openedCards[0].position, openedCards[1].position];
+						res.end(JSON.stringify(responseData));
 					}
 					break;
 
 				case 3:
 					openedCards.forEach(elem => {
-						if (elem.position !== data[0]) elem.open = false;
+						if (elem.position !== positionCard) elem.open = false;
 					});
-					res.writeHead(200, {'Content-Type': 'application/json'});
-					const data = ['freezeErr'];
-					res.end(JSON.stringify(data));
+					res.setHeader('Content-Type', 'application/json');
+					responseData = ['freezeErr'];
+					res.end(JSON.stringify(responseData));
 					break;
 			}
+
+			allGames[gameID] = game;
+
+			fs.writeFile(path.join(__dirname, '../allGames.json'), JSON.stringify(allGames), error => {
+				if (error) throw error;
+			});
 
 		});
 	});
