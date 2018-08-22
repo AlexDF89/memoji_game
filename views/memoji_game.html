@@ -9,14 +9,22 @@
 	<div class="windowWinWrap" id="windowWinWrap">
 		<div class="windowWin">
 			<h2><span class="win">W</span><span class="win">i</span><span class="win">n</span></h2>
-			<a href="javascript:void(0);" id="btnWin">Play again</a>
+			<form action="game" method="POST">
+				<label>Количество карт: <input style="border: 1px solid black;" type="text"  name="numberOfCards" value="12"></label>
+				<label>время на игру: <input style="border: 1px solid black;" type="text" name="timeOfGame" value="60"></label>
+				<button id="btnWin">Play again</button>
+			</form>
 		</div>
 	</div>
 
 	<div class="windowLoseWrap" id="windowLoseWrap">
 		<div class="windowLose">
 			<h2><span class="lose">L</span><span class="lose">o</span><span class="lose">s</span><span class="lose">e</span></h2>
-			<a href="javascript:void(0);" id="btnLose">Try again</a>
+			<form action="game" method="POST">
+				<label>Количество карт: <input style="border: 1px solid black;" type="text"  name="numberOfCards" value="12"></label>
+				<label>время на игру: <input style="border: 1px solid black;" type="text" name="timeOfGame" value="60"></label>
+				<button id="btnLose">Try again</button>
+			</form>
 		</div>
 	</div>
 

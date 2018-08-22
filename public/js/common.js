@@ -38,16 +38,47 @@ const createCardElement = cardBlank => {
 	return li;
 }
 
-const createTimer = timeOfGame => {
+const timer = () => {
 	const timer = document.getElementById('timer');
+	const text = timer.innerHTML;
+	const time = text.split(':');
+	let minutes = parseInt(time[0], 10);
+			
+	if (time[0] > 0) {
+		if (time[1] === '00') {
+			time[0] = minutes - 1;
+			time[1] = '59';
+		} else {
+			time[0] = minutes;
+			time[1] = parseInt(time[1]) - 1;
+			if (time[1] < 10) time[1] = '0' + time[1];
+			timer.innerHTML = time[0] + ':' + time[1];
+		}
+		timer.innerHTML = '0' + time[0] + ':' + time[1];
+	} else if (parseInt(time[1]) > 0) {
+		time[1] = parseInt(time[1]) - 1;
+		if (time[1] < 10) time[1] = '0' + time[1];
+		timer.innerHTML = time[0] + ':' + time[1];
+		if (time[0] === '00' && time[1] === '00') {
+			const winLose = document.getElementById('windowLoseWrap');
+			winLose.style.display = 'block';
+		}
+	}
+}
+
+const createTimer = timeOfGame => {
+	const time = document.getElementById('timer');
 	let minutes = Math.floor(timeOfGame/60);
 	if (minutes > 10) minutes = 10;
 	if (minutes < 10) minutes = '0' + minutes;
 	let seconds = timeOfGame%60;
 	if (seconds < 10) seconds = '0' + seconds;
 
-	timer.innerHTML = minutes + ':' + seconds;
+	time.innerHTML = minutes + ':' + seconds;
+
+	setInterval(timer, 1000);
 }
+
 
 const createHandler = () => {
 
@@ -93,6 +124,18 @@ const createHandler = () => {
 								val.classList.remove('freezeErr','open');
 							}
 						});
+						break;
+
+					case 'win':
+						listLi = field.querySelectorAll('li');
+						listLi.forEach(val => {
+							if (val.position === response[1] || val.position === response[2]) {
+								val.classList.add('freeze', 'opened');
+								val.classList.remove('open');
+							}
+						});
+						const windowWin = document.getElementById('windowWinWrap');
+						windowWin.style.display = 'block';
 						break;
 				}
 			}

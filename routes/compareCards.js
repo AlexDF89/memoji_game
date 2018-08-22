@@ -42,7 +42,9 @@ function compareCards (req, res, lib) {
 						openedCards[0].open = 'freeze';
 						openedCards[1].open = 'freeze';
 						res.setHeader('Content-Type', 'application/json');
-						responseData = ['freeze', openedCards[0].position, openedCards[1].position];
+						const win = lib.checkWin(game);
+						const state = win ? 'win' : 'freeze';
+						responseData = [state, openedCards[0].position, openedCards[1].position];
 						res.end(JSON.stringify(responseData));
 					} else {
 						res.setHeader('Content-Type', 'application/json');
