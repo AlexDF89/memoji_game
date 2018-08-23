@@ -22,7 +22,7 @@
 			<h2><span class="lose">L</span><span class="lose">o</span><span class="lose">s</span><span class="lose">e</span></h2>
 			<form action="game" method="POST">
 				<label>Количество карт: <input style="border: 1px solid black;" type="text"  name="numberOfCards" value="12"></label>
-				<label>время на игру: <input style="border: 1px solid black;" type="text" name="timeOfGame" value="60"></label>
+				<label>Время на игру: <input style="border: 1px solid black;" type="text" name="timeOfGame" value="60"></label>
 				<button id="btnLose">Try again</button>
 			</form>
 		</div>
@@ -31,8 +31,9 @@
 	<h1>Memoji</h1>
 	<section>
 		<ul id="field" data-game-id="{{gameID}}">
+			{{cards}}
 		</ul>
-		<div class="timer" id="timer"></div>
+		<div class="timer" id="timer">{{time}}</div>
 	</section>
 
 	<link rel="stylesheet" href="css/style.css">

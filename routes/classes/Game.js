@@ -5,7 +5,6 @@ class Game {
 	constructor(params) {
 		this.numberCardsField = parseInt(this.getNumberCards(params.numberOfCards));
 		this.timeOfGame = parseInt(params.timeOfGame);
-		this.gameStart = false;
 		this.playingCards = this.createKitOfCards();
 
 		lib.getGameID((err, data) => {

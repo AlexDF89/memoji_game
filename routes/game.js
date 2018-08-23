@@ -26,6 +26,10 @@ function game(req, res, lib) {
 			});
 			//res.writeHead(200, { 'Content-type': 'application/json' });
 			//res.end(allGames);
+
+			game.cards = lib.createField(game.playingCards);
+			game.time = lib.createTimer(game.timeOfGame);
+
 			res.writeHead(200, { 'Content-type': 'text/html; charset=utf-8' });
 			res.render('memoji_game.html', game);
 		});

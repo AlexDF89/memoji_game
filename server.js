@@ -11,8 +11,6 @@ http.createServer((req, res) => {
 		startPage(req, res);
 	} else if (req.url === '/game') {
 		game(req, res, lib);
-	} else if (req.url === '/getCardsOfField') {
-		getCardsOfField(req, res, lib);
 	} else if (req.url === '/compareCards') {
 		compareCards(req, res, lib);
 	} else {

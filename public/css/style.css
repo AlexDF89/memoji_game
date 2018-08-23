@@ -161,6 +161,7 @@ li.opened {
 	display: inline-block;
 	margin: 0 auto;
 	margin-top: 14%;
+	padding-bottom: 50px;
 }
 
 .windowWin h2, .windowLose h2 {
