@@ -62,7 +62,6 @@ const createHandler = () => {
 		request.onreadystatechange = () => {
 			if ( request.readyState === 4 ) {
 				const response = JSON.parse(request.responseText);
-				console.log(response);
 				let listLi;
 				switch (response[0]) {
 					case 'open':
@@ -80,14 +79,23 @@ const createHandler = () => {
 						break;
 
 					case 'freezeErr':
-						if (response.length === 3) break;
 						listLi = field.querySelectorAll('li');
-						listLi.forEach(val => {
-							if (val.classList.contains('open') && val !== elem) {
-								val.classList.remove('freezeErr','open');
-							}
-						});
-						break;
+						if (response.length === 3) {
+							listLi.forEach(val => {
+								const pos = parseInt(val.dataset.position);
+								if (pos === response[1] || pos === response[2]) {
+									val.classList.add('freezeErr');
+								}
+							});
+							break;
+						} else {
+							listLi.forEach(val => {
+								if (val.classList.contains('open') && val !== elem) {
+									val.classList.remove('freezeErr','open');
+								}
+							});
+							break;
+						}
 
 					case 'win':
 						listLi = field.querySelectorAll('li');

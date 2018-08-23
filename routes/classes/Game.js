@@ -6,6 +6,7 @@ class Game {
 		this.numberCardsField = parseInt(this.getNumberCards(params.numberOfCards));
 		this.timeOfGame = parseInt(params.timeOfGame);
 		this.playingCards = this.createKitOfCards();
+		this.date = Date.now();
 
 		lib.getGameID((err, data) => {
 			if (err) throw new Error('Ошибка на сервере');

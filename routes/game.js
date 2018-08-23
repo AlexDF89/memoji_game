@@ -18,6 +18,7 @@ function game(req, res, lib) {
 				res.end('Ошибка на сервере');
 			}
 			let allGames = JSON.parse(data);
+
 			allGames[game.gameID] = game;
 			allGames = JSON.stringify(allGames);
 			fs.writeFile(path.join(__dirname, '../allGames.json'), allGames, error => {
