@@ -1,24 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 
+let currentGames;
+
 function compareCards (req, res, lib) {
+
 	let data = '';
 	req.on('data', part => data += part);
 	req.on('end', () => {
-		fs.readFile(path.join(__dirname, '../allGames.json'), 'utf-8', (err, file) => {
-			if (err) {
-				res.writeHead(500, { 'Content-type': 'text/plain' });
-				res.end('Ошибка на сервере');
-			}
 
-			let allGames = JSON.parse(file);
+		data = JSON.parse(data);
 
+		if (!data) return;
+
+		if (data.length !== 2) {
 			data = JSON.parse(data);
+			currentGames = data;
+			return;
+		} else {
+
 			const gameID = data[1];
 			const positionCard = data[0];
 
-
-			const game = allGames[gameID];
+			const game = currentGames[gameID];
 			const openedCards = [];
 
 			game.playingCards.forEach((elem, i) => {
@@ -63,13 +67,13 @@ function compareCards (req, res, lib) {
 					break;
 			}
 
-			allGames[gameID] = game;
+			currentGames[gameID] = game;
 
-			fs.writeFile(path.join(__dirname, '../allGames.json'), JSON.stringify(allGames), error => {
+			fs.writeFile(path.join(__dirname, '../allGames.json'), JSON.stringify(currentGames), error => {
 				if (error) throw error;
 			});
+		}
 
-		});
 	});
 
 }
