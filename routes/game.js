@@ -16,7 +16,7 @@ function game(req, res, lib) {
 			fs.readFile(path.join(__dirname, '../allGames.json'), 'utf-8', (err, data) => {
 				if (err) {
 					res.writeHead(500, { 'Content-type': 'text/plain' });
-					res.end('Ошибка на сервере');
+					res.end('Ошибка на сервере you are here');
 				}
 				let allGames = JSON.parse(data);
 
@@ -24,8 +24,9 @@ function game(req, res, lib) {
 				allGames = JSON.stringify(allGames);
 
 				fs.writeFile(path.join(__dirname, '../allGames.json'), allGames, error => {
-					res.writeHead(500, { 'Content-type': 'text/plain' });
-					res.end('Ошибка на сервере');				
+
+					if (error) throw error;
+							
 				});
 
 				request.post(

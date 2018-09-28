@@ -1,7 +1,7 @@
 const http = require('http');
 
 const { render, lib, startGame } = require('./lib');
-const { public, startPage, game, getCardsOfField, compareCards,	notFound } = require('./routes');
+const { public, startPage, game, compareCards,	notFound } = require('./routes');
 http.ServerResponse.prototype.render = render;
 
 http.createServer((req, res) => {
