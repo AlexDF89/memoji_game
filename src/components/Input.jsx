@@ -2,14 +2,15 @@ import React from 'react';
 
 function Input (props) {
   return (
-    <div>
-      <div>
+    <label>
+      <p>
         {props.text ? props.text : ''}
-      </div>
+      </p>
       <input 
         type={props.inputType}
-        placeholder={props.text ? props.text : ''} />
-    </div>
+        placeholder={props.text ? props.text : ''}
+        defaultValue={props.inputValue ? props.inputValue : ''} />
+    </label>
   );
 }
 

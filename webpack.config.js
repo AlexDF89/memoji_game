@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -16,6 +17,11 @@ module.exports = {
   mode: 'development',
 
   devtool: 'source-map',
+
+  devServer: {
+    port: 8080,
+    contentBase: path.resolve(__dirname, 'public')
+  },
 
   optimization: {
     splitChunks: {
@@ -46,6 +52,14 @@ module.exports = {
             presets: ['@babel/env', '@babel/react']
           }
         }
+      },
+      {
+        test: /\.?scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader', 
+          'sass-loader'
+        ]
       }
     ]
   },
@@ -53,6 +67,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: './css/style.css'
     })
   ]
 
