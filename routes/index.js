@@ -1,13 +1,7 @@
-const public = require('./public'),
-			startPage = require('./startPage'),
-			game = require('./game'),
-			compareCards = require('./compareCards');
-			notFound = require('./notFound');
+const public = require('./public');
+const page = require('./page');
 
 module.exports = {
 	public,
-	startPage,
-	game,
-	compareCards,
-	notFound
+	page
 };
