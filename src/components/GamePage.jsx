@@ -1,8 +1,12 @@
 import React from 'react';
 
-function GamePage () {
+function GamePage (props) {
   return (
-    <section>Hello World</section>
+    <section>
+      Hello World
+      {props.cards}
+      {props.sec}
+    </section>
   );
 }
 

@@ -2,8 +2,10 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-
 const { public, page } = require('./routes');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
 	page(req, res);
@@ -11,6 +13,17 @@ app.get('/', (req, res) => {
 
 app.get(/\.(css|js)/, (req, res) => {
 	public(req, res);
+});
+
+app.post('/game', (req, res) => {
+	const game = {
+		cards: req.body.cards * 10,
+		sec: req.body.sec * 10
+	};
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'application/json');
+
+	res.send(game);
 });
 
 app.listen(3000, console.log("Сервер работает. http://localhost:3000."));

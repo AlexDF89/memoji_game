@@ -7,6 +7,8 @@
     "lib": "lib"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -32,8 +34,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "wbpck": "npx webpack --watch",
-    "dev": "npx webpack-dev-server",
+    "dev": "npx webpack --watch",
+    "dev-server": "npx webpack-dev-server",
     "build": "npm run clean && npx webpack --mode=production",
     "clean": "rimraf public"
   },

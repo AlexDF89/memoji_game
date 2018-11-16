@@ -9,7 +9,8 @@ function Input (props) {
       <input 
         type={props.inputType}
         placeholder={props.text ? props.text : ''}
-        defaultValue={props.inputValue ? props.inputValue : ''} />
+        defaultValue={props.inputValue ? props.inputValue : ''} 
+        id={props.idElem ? props.idElem : ''}/>
     </label>
   );
 }
