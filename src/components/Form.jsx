@@ -6,8 +6,8 @@ function Form(props) {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-    const numCards = document.getElementById('numCards');
-    const numSec = document.getElementById('numSec');
+    	const numCards = document.getElementById('numCards');
+    	const numSec = document.getElementById('numSec');
 		props.passParam(numCards.value, numSec.value);
 	}
 

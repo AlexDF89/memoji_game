@@ -21,7 +21,7 @@ class App extends React.Component {
 
   startGame(cards, sec) {
     const data = {cards, sec};
-    axios.post('http://localhost:3000/game', data)
+    axios.post('/game', data)
       .then(response => response.data)
       .then(game => {
         this.setState({ page: 'game', cards: game.cards, sec: game.sec });
