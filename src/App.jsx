@@ -18,14 +18,6 @@ class App extends React.Component {
 
   }
   
-  // componentDidMount() {
-  //   axios.get('http://localhost:3000/game')
-  //     .then(response => response.data)
-  //     .then( game => {
-  //       this.setState({ page: 'game', cards: game.cards, sec: game.sec })
-  //     })
-  //     .catch( err => console.log(err));
-  // }
 
   startGame(cards, sec) {
     const data = {cards, sec};
