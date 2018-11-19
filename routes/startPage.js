@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-function page(req, res) {
+function startPage(req, res) {
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'text/html');
 
@@ -20,4 +20,4 @@ function page(req, res) {
 	});
 }
 
-module.exports = page;
+module.exports = startPage;

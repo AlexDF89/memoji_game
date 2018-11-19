@@ -2,13 +2,13 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const { public, page } = require('./routes');
+const { public, startPage, gamePage } = require('./routes');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-	page(req, res);
+	startPage(req, res);
 });
 
 app.get(/\.(css|js)/, (req, res) => {
@@ -16,14 +16,32 @@ app.get(/\.(css|js)/, (req, res) => {
 });
 
 app.post('/game', (req, res) => {
-	const game = {
-		cards: req.body.cards * 10,
-		sec: req.body.sec * 10
+	let game = {
+		cards: req.body.cards,
+		sec: req.body.sec
 	};
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'application/json');
 
-	res.send(game);
+	game.err = false;
+
+	if (game.cards > 20 || game.sec > 300) {
+
+		game.err = true;
+		game.errMess = 'Количество карт должно быть от 4 до 20. Время игры должно быть от 10 до 300 секунд!';
+
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/plain');
+		res.send(game);
+		res.end();
+	} else {
+		game = gamePage(game);
+		game = {cards: game.playingCards, sec: game.timeOfGame};
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'application/json');
+
+		res.send(game);
+		res.end();
+	}
+
 });
 
 app.listen(3000, console.log("Сервер работает. http://localhost:3000."));

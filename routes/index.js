@@ -1,7 +1,9 @@
 const public = require('./public');
-const page = require('./page');
+const startPage = require('./startPage');
+const gamePage = require('./gamePage');
 
 module.exports = {
 	public,
-	page
+	startPage,
+	gamePage
 };
