@@ -32,9 +32,21 @@ class App extends React.Component {
           this.setState({ errMess: false });
           return;
         }
+        window.history.pushState(null, null, 'game');
         this.setState({ errMess: false, page: 'game', cards: game.cards, sec: game.sec });
       })
       .catch(error => console.error(error.message));
+  }
+
+  flip(elem) {
+    console.log(elem.tagName);
+    if (elem.tagName === 'DIV') {
+      const parentElement = elem.parentNode;
+      if (parentElement.classList.contains('opened')) return;
+      if (parentElement.classList.contains('freezeErr')) return;
+      parentElement.classList.toggle('open');
+			
+    }
   }
 
   render() {
@@ -54,7 +66,7 @@ class App extends React.Component {
         {(this.state.page === 'start') ?
           <StartPage startGame={this.startGame} />
           :
-          <GamePage cards={this.state.cards} sec={this.state.sec} />
+          <GamePage handleClick={this.flip} cards={this.state.cards} sec={this.state.sec} />
         }
       </main>
     );

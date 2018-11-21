@@ -33,13 +33,20 @@ app.post('/game', (req, res) => {
 		res.send(game);
 		res.end();
 	} else {
-		game = gamePage(game);
-		game = {cards: game.playingCards, sec: game.timeOfGame};
-		res.statusCode = 200;
-		res.setHeader('Content-Type', 'application/json');
 
-		res.send(game);
-		res.end();
+		const cb = blankGame => {
+			res.statusCode = 200;
+			res.setHeader('Content-Type', 'application/json');
+	
+			res.send(blankGame);
+			res.end();
+		};
+
+		const err = err => {
+			console.log(err);
+		};
+
+		gamePage(err, cb, game);
 	}
 
 });
