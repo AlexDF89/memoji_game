@@ -23,7 +23,7 @@ const gamePage = (err, cb, params) => {
     .then( game => {
 
       const blanks = game.playingCards.map( elem => {
-        return elem.position;
+        return  { position: elem.position };
       });
 
       const blankGame = {

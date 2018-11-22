@@ -6,15 +6,14 @@ function GamePage (props) {
   const clickCard = (event) => {
     props.handleClick(event);
   };
-
   return (
     <section>
-      <ul id="field" data-game-id="gameID">
+      <ul id="field" data-game-id={props.gameID}>
         {props.cards.map(card => {
           return <Card
                     clickPass={clickCard}
-                    key={card}
-                    position={card}
+                    key={card.position}
+                    position={card.position}
                     img={card.image ? card.image : ''} />
         })}
       </ul>

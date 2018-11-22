@@ -2,7 +2,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const { public, startPage, gamePage } = require('./routes');
+const { public, startPage, gamePage, flipCard } = require('./routes');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -49,6 +49,27 @@ app.post('/game', (req, res) => {
 		gamePage(err, cb, game);
 	}
 
+});
+
+app.post('/flip', (req, res) => {
+	const clickedCard = {
+		gameID: req.body.gameID,
+		position: req.body.position
+	}
+
+	const cb = game => {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'application/json');
+
+		res.send(game);
+		res.end();
+	};
+
+	const err = err => {
+		console.log(err);
+	};
+
+	flipCard(err, cb, clickedCard);
 });
 
 app.listen(3000, console.log("Сервер работает. http://localhost:3000."));

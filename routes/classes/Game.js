@@ -60,7 +60,7 @@ class Game {
 		const result = {};
 		result.image = image.image;
 		result.kitId = image.kitId;
-		result.open = false;
+		result.opened = false;
 		return result;		
 	}
 

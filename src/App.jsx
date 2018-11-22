@@ -14,10 +14,12 @@ class App extends React.Component {
       page: 'start',
       cards: null,
       sec: null,
-      errMess: false
+      errMess: false,
+      gameID: null
     }
 
     this.startGame = this.startGame.bind(this);
+    this.flip = this.flip.bind(this);
 
   }
   
@@ -33,15 +35,26 @@ class App extends React.Component {
           return;
         }
         window.history.pushState(null, null, 'game');
-        this.setState({ errMess: false, page: 'game', cards: game.cards, sec: game.sec });
+        this.setState({ errMess: false, page: 'game', gameID: game.gameID, cards: game.cards, sec: game.sec });
       })
       .catch(error => console.error(error.message));
   }
 
   flip(elem) {
-    console.log(elem.tagName);
     if (elem.tagName === 'DIV') {
       const parentElement = elem.parentNode;
+
+      const data = {
+        position: parentElement.dataset.position,
+        gameID: this.state.gameID
+      };
+
+      axios.post('/flip', data)
+        .then(response => response.data)
+        .then(dataGame => {
+          this.setState({ cards: dataGame });
+        })
+        .catch( e => console.error(e.message));
       if (parentElement.classList.contains('opened')) return;
       if (parentElement.classList.contains('freezeErr')) return;
       parentElement.classList.toggle('open');
@@ -66,7 +79,7 @@ class App extends React.Component {
         {(this.state.page === 'start') ?
           <StartPage startGame={this.startGame} />
           :
-          <GamePage handleClick={this.flip} cards={this.state.cards} sec={this.state.sec} />
+          <GamePage handleClick={this.flip} gameID={this.state.gameID} cards={this.state.cards} sec={this.state.sec} />
         }
       </main>
     );
