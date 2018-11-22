@@ -14,13 +14,25 @@ const flipCard = (err, cb, clickedCard) => {
   ModelGame.find({ _id: clickedCard.gameID })
     .then(game => {
 
+      let prevOpenedCard = {};
+
       game[0].playingCards.forEach( (card, i, arr) => {
+
+        if (card.opened && !card.freezed) {
+          prevOpenedCard = card;
+          prevOpenedCard.index = i;
+        }
+
         if (clickedCard.position == card.position) {
           game[0].playingCards[i].opened = true;
-        }
-      });
 
-      
+          if (game[0].playingCards[i].kitId === prevOpenedCard.kitId) {
+            game[0].playingCards[i].freezed = true;
+            game[0].playingCards[prevOpenedCard.index].freezed = true;
+          }
+
+        }
+      });      
 
       const updGame = new ModelGame(game[0]);
 

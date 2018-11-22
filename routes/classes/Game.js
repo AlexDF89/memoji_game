@@ -17,6 +17,7 @@ class Game {
 		for (let i = 0; i < images.length; i++) {
 			const card = this.cardBlank(images[i]);
 			card.position = i;
+			card.freezed = false;
 			elements.push(card);
 		}
 		while (result.length !== elements.length ) {
