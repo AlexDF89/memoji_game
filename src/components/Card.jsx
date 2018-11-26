@@ -9,7 +9,14 @@ function Card(props) {
   }
 
   return (
-    <li onClick={clickOnLi} data-position={props.position}>
+    <li 
+      onClick={clickOnLi} 
+      data-position={props.position} 
+      className={`
+        ${props.opened ? 'opened' : ''} 
+        ${props.freeze ? 'freeze' : ''} 
+        ${props.freezeErr ? 'freezeErr' : ''} 
+      `}>
       <div className="shirt"></div>
       <div dangerouslySetInnerHTML={createMarkup()} className="emotion" />
     </li>

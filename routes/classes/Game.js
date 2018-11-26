@@ -18,6 +18,7 @@ class Game {
 			const card = this.cardBlank(images[i]);
 			card.position = i;
 			card.freezed = false;
+			card.freezeErr = false;
 			elements.push(card);
 		}
 		while (result.length !== elements.length ) {

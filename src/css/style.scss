@@ -119,11 +119,13 @@ li
 	background-color: #fff;
 	transform: rotateY(-180deg);
 }
-li.open {
+li.opened {
 	transform: rotateY(180deg);
 }
-li.freeze 
-	.emotion {
+li.freeze {
+	transform: rotateY(180deg);
+}
+li.freeze	.emotion {
 		background-color: #5AD66F;
 		border: 5px solid #5AD66F;
 	}
@@ -132,9 +134,6 @@ li.freezeErr
 		background-color: #F44336;
 		border: 5px solid #F44336;
 	}
-li.opened {
-	transform: rotateY(180deg);
-}
 
 .timer {
 	text-align: center;
@@ -152,7 +151,6 @@ li.opened {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	display: none;
 	background-color: rgba(0,0,0,.5);
 	z-index: 1;
 	text-align: center;
@@ -167,6 +165,9 @@ li.opened {
 	margin: 0 auto;
 	margin-top: 14%;
 	padding-bottom: 50px;
+}
+.windowWin input, .windowLose input {
+	border: 1px solid #888;
 }
 
 .windowWin h2, .windowLose h2 {

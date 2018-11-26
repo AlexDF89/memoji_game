@@ -1,11 +1,13 @@
 import React from 'react';
 import Card from './Card';
+import Timer from './Timer';
 
 function GamePage (props) {
 
   const clickCard = (event) => {
     props.handleClick(event);
   };
+
   return (
     <section>
       <ul id="field" data-game-id={props.gameID}>
@@ -14,10 +16,13 @@ function GamePage (props) {
                     clickPass={clickCard}
                     key={card.position}
                     position={card.position}
-                    img={card.image ? card.image : ''} />
+                    img={card.image ? card.image : ''} 
+                    opened={card.opened} 
+                    freeze={card.freeze} 
+                    freezeErr={card.freezeErr} />
         })}
       </ul>
-      <div className="timer" id="timer">{props.sec}</div>
+      <Timer time={props.time} />
     </section>
   );
 }

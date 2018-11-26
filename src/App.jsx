@@ -5,6 +5,7 @@ import Title from './components/Title';
 import StartPage from './components/StartPage';
 import GamePage from './components/GamePage';
 import WindowErr from './components/WindowErr';
+import WindowWin from './components/WindowWin';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class App extends React.Component {
       cards: null,
       sec: null,
       errMess: false,
-      gameID: null
+      gameID: null,
+      win: false,
+      lose: false
     }
 
     this.startGame = this.startGame.bind(this);
@@ -55,9 +58,6 @@ class App extends React.Component {
           this.setState({ cards: dataGame });
         })
         .catch( e => console.error(e.message));
-      if (parentElement.classList.contains('opened')) return;
-      if (parentElement.classList.contains('freezeErr')) return;
-      parentElement.classList.toggle('open');
 			
     }
   }
@@ -79,8 +79,13 @@ class App extends React.Component {
         {(this.state.page === 'start') ?
           <StartPage startGame={this.startGame} />
           :
-          <GamePage handleClick={this.flip} gameID={this.state.gameID} cards={this.state.cards} sec={this.state.sec} />
+          <GamePage 
+            handleClick={this.flip} 
+            gameID={this.state.gameID} 
+            cards={this.state.cards} 
+            time={this.state.sec} />
         }
+        <WindowWin passParam={onStartGame} />
       </main>
     );
   }
