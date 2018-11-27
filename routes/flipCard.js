@@ -15,8 +15,12 @@ const flipCard = (err, cb, clickedCard) => {
     .then(game => {
 
       const openedCards = [];
+      let freezedCards = 0;
 
       game[0].playingCards.forEach( (card, i, arr) => {
+
+        if (card.freeze) freezedCards += 1;
+        if (freezedCards === game[0].length) game[0].win = true;
 
         if (card.opened === true) {
           card.index = i;
@@ -37,6 +41,8 @@ const flipCard = (err, cb, clickedCard) => {
             openedCards.forEach(elem => {
               game[0].playingCards[elem.index].freeze = true;
               game[0].playingCards[elem.index].opened = false;
+              if (elem.freeze) freezedCards += 1;
+              if (freezedCards === game[0].playingCards.length) game[0].win = true;
             });
           } else {
             openedCards.forEach(elem => {
@@ -60,19 +66,24 @@ const flipCard = (err, cb, clickedCard) => {
 
       updGame.save()
         .then(game => {
-          const updatedGame = [];
+          const updatedGame = {};
+          updatedGame.cards = [];
+
+          updatedGame.win = game.win;
+          updatedGame.lose = game.lose;
+
           game.playingCards.forEach( (elem, i) => {
-            updatedGame[i] = {};
+            updatedGame.cards[i] = {};
             if (elem.opened) {
-              updatedGame[i].image = elem.image;
-              updatedGame[i].opened = true;
+              updatedGame.cards[i].image = elem.image;
+              updatedGame.cards[i].opened = true;
             }
             if (elem.freeze) {
-              updatedGame[i].image = elem.image;
-              updatedGame[i].freeze = true;
+              updatedGame.cards[i].image = elem.image;
+              updatedGame.cards[i].freeze = true;
             }
-            if (elem.freezeErr) updatedGame[i].freezeErr = true;
-            updatedGame[i].position = elem.position;
+            if (elem.freezeErr) updatedGame.cards[i].freezeErr = true;
+            updatedGame.cards[i].position = elem.position;
           });
           cb(updatedGame);
         })

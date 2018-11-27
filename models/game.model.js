@@ -21,6 +21,11 @@ const GamesSchema = new Schema ({
   win: {
     type: Boolean,
     default: false
+  },
+
+  lose: {
+    type: Boolean,
+    default: false
   }
 
 });

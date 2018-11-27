@@ -16,7 +16,8 @@ const gamePage = (err, cb, params) => {
     numberCardsField: game.numberCardsField,
     timeOfGame: game.timeOfGame,
     playingCards: game.playingCards,
-    win: false
+    win: game.win,
+    lose: game.lose
   });
 
   currentGame.save()

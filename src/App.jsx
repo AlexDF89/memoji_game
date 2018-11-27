@@ -25,8 +25,9 @@ class App extends React.Component {
     this.flip = this.flip.bind(this);
 
   }
-  
 
+  
+  
   startGame(cards, sec) {
     const data = {cards, sec};
     axios.post('/game', data)
@@ -38,7 +39,15 @@ class App extends React.Component {
           return;
         }
         window.history.pushState(null, null, 'game');
-        this.setState({ errMess: false, page: 'game', gameID: game.gameID, cards: game.cards, sec: game.sec });
+        this.setState({
+          errMess: false, 
+          page: 'game', 
+          gameID: game.gameID, 
+          cards: game.cards, 
+          sec: game.sec,
+          win: game.win
+        });
+
       })
       .catch(error => console.error(error.message));
   }
@@ -55,7 +64,11 @@ class App extends React.Component {
       axios.post('/flip', data)
         .then(response => response.data)
         .then(dataGame => {
-          this.setState({ cards: dataGame });
+          this.setState({ 
+            cards: dataGame.cards,
+            win: dataGame.win,
+            lose: dataGame.lose
+          });
         })
         .catch( e => console.error(e.message));
 			
@@ -83,9 +96,14 @@ class App extends React.Component {
             handleClick={this.flip} 
             gameID={this.state.gameID} 
             cards={this.state.cards} 
-            time={this.state.sec} />
+            time={this.state.sec} 
+          />
         }
-        <WindowWin passParam={onStartGame} />
+        { this.state.win 
+          ? <WindowWin startGame={this.startGame} />
+          : ''
+        }
+        
       </main>
     );
   }
