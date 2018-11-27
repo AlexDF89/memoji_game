@@ -22,7 +22,7 @@ function GamePage (props) {
                     freezeErr={card.freezeErr} />
         })}
       </ul>
-      <Timer time={props.time} />
+      <Timer minutes={props.minutes} seconds={props.seconds} />
     </section>
   );
 }
