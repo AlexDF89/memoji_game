@@ -14,53 +14,59 @@ const flipCard = (err, cb, clickedCard) => {
   ModelGame.find({ _id: clickedCard.gameID })
     .then(game => {
 
-      const openedCards = [];
-      let freezedCards = 0;
+      if (clickedCard.lose) {
+        game[0].lose = true;
+      } else {
+        const openedCards = [];
+        let freezedCards = 0;
 
-      game[0].playingCards.forEach( (card, i, arr) => {
+        game[0].playingCards.forEach( (card, i, arr) => {
 
-        if (card.freeze) freezedCards += 1;
-        if (freezedCards === game[0].length) game[0].win = true;
+          if (card.freeze) freezedCards += 1;
+          if (freezedCards === game[0].length) game[0].win = true;
 
-        if (card.opened === true) {
-          card.index = i;
-          openedCards.push(card);
-        }
-
-        if (clickedCard.position == card.position) {
-          card.opened = true;
-          card.index = i;
-          openedCards.push(card);
-        }
-
-      });
-
-      switch (openedCards.length) {
-        case 2: {
-          if (openedCards[0].kitId === openedCards[1].kitId) {
-            openedCards.forEach(elem => {
-              game[0].playingCards[elem.index].freeze = true;
-              game[0].playingCards[elem.index].opened = false;
-              if (elem.freeze) freezedCards += 1;
-              if (freezedCards === game[0].playingCards.length) game[0].win = true;
-            });
-          } else {
-            openedCards.forEach(elem => {
-              game[0].playingCards[elem.index].freezeErr = true;
-            });
+          if (card.opened === true) {
+            card.index = i;
+            openedCards.push(card);
           }
-          break;
-        }
-        case 3: {
-          openedCards.forEach(elem => {
-            if (elem.position != clickedCard.position) {
-              game[0].playingCards[elem.index].freezeErr = false;
-              game[0].playingCards[elem.index].opened = false;
+
+          if (clickedCard.position == card.position) {
+            if (!card.opened && !card.freeze && !card.freezeErr) {
+              card.opened = true;
+              card.index = i;
+              openedCards.push(card);
             }
-          });
-          break;
+          }
+
+        });
+
+        switch (openedCards.length) {
+          case 2: {
+            if (openedCards[0].kitId === openedCards[1].kitId) {
+              openedCards.forEach(elem => {
+                game[0].playingCards[elem.index].freeze = true;
+                game[0].playingCards[elem.index].opened = false;
+                if (elem.freeze) freezedCards += 1;
+                if (freezedCards === game[0].playingCards.length) game[0].win = true;
+              });
+            } else {
+              openedCards.forEach(elem => {
+                game[0].playingCards[elem.index].freezeErr = true;
+              });
+            }
+            break;
+          }
+          case 3: {
+            openedCards.forEach(elem => {
+              if (elem.position != clickedCard.position) {
+                game[0].playingCards[elem.index].freezeErr = false;
+                game[0].playingCards[elem.index].opened = false;
+              }
+            });
+            break;
+          }
         }
-      }
+      }      
 
       const updGame = new ModelGame(game[0]);
 

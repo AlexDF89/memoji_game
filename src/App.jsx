@@ -48,9 +48,11 @@ class App extends React.Component {
           cards: game.cards, 
           sec: game.sec,
           win: game.win,
+          lose: game.lose,
           minutes: this.getMinutes(game.sec),
           seconds: this.getSeconds(game.sec)
         });
+        this.interval = setInterval(this.tick, 1000);
 
       })
       .catch(error => console.error(error.message));
@@ -68,6 +70,7 @@ class App extends React.Component {
       axios.post('/flip', data)
         .then(response => response.data)
         .then(dataGame => {
+          if (dataGame.win === true) clearInterval(this.interval);
           this.setState({ 
             cards: dataGame.cards,
             win: dataGame.win,
@@ -92,15 +95,19 @@ class App extends React.Component {
       const minutes = Math.floor(this.state.sec / 60);
       const seconds = this.state.sec % 60;
       this.setState({sec: this.state.sec - 1, minutes, seconds});
+    } else if (this.state.gameID) {
+      const data = {
+        lose: true,
+        gameID: this.state.gameID
+      };
+      axios.post('/flip', data)
+        .then( response => response.data )
+        .then( dataGame => {
+          this.setState({ lose: dataGame.lose })
+          clearInterval(this.interval);
+        })
+        .catch( e => console.error(e.message));
     }
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(this.tick, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   render() {

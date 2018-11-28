@@ -54,7 +54,8 @@ app.post('/game', (req, res) => {
 app.post('/flip', (req, res) => {
 	const clickedCard = {
 		gameID: req.body.gameID,
-		position: req.body.position
+		position: req.body.position,
+		lose: req.body.lose
 	}
 
 	const cb = game => {
