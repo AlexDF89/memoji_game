@@ -24,7 +24,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     proxy: {
       '/': {
-        target: 'http://localhost:3000'
+        target: 'http://localhost:3002'
       }
     }
   },

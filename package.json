@@ -37,8 +37,6 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/nodemon server.js",
-    "dev": "npx webpack --watch",
-    "dev-server": "npx webpack-dev-server",
     "build": "npm run clean && npx webpack --mode=production",
     "clean": "rimraf public"
   },

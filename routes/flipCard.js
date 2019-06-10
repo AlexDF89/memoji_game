@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const flipCard = (err, cb, clickedCard) => {
 
   mongoose.connect('mongodb://localhost/memojiGameDB', { useNewUrlParser: true })
-  .then(() => console.log('MongoDB has started'))
+  .then(() => console.log())
   .catch(e => console.log(e));
 
   require('../models/game.model');
