@@ -1,12 +1,11 @@
 const Game = require('./classes/Game');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/memojiGameDB', { useNewUrlParser: true })
+  .catch(e => console.log(e));
 
 const gamePage = (err, cb, params) => {
   const game = new Game(params);
 
-  mongoose.connect('mongodb://localhost/memojiGameDB', { useNewUrlParser: true })
-    .then(() => console.log())
-    .catch(e => console.log(e));
   
   require('../models/game.model');
 
@@ -32,7 +31,7 @@ const gamePage = (err, cb, params) => {
         sec: game.timeOfGame,
         cards: blanks
       };
-      cb(blankGame);
+			cb(blankGame);
     })
     .catch( e => console.log(e) );
 };

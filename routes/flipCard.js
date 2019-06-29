@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const flipCard = (err, cb, clickedCard) => {
 
   mongoose.createConnection('mongodb://localhost/memojiGameDB', { useNewUrlParser: true })
-  .then(() => console.log())
   .catch(e => {
     console.log(e);
   });
@@ -93,7 +92,7 @@ const flipCard = (err, cb, clickedCard) => {
             if (elem.freezeErr) updatedGame.cards[i].freezeErr = true;
             updatedGame.cards[i].position = elem.position;
           });
-          cb(updatedGame);
+					cb(updatedGame);
         })
         .catch(e => console.log(e));
 
