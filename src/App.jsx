@@ -124,7 +124,6 @@ class App extends React.Component {
         </ReactCSSTransitionGroup >
         
         <Title title="Memoji" />
-        <a href="http://webdev-master.ru" className="back-main-site"><img src={require('./img/back.png')} alt="Вернуться на главную страницу" title="Вернуться на главную страницу"/></a>
         {(this.state.page === 'start') ?
           <StartPage startGame={this.startGame} />
           :

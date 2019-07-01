@@ -16,7 +16,7 @@ h1 {
 	text-align: center;
 	color: #434344;
 	margin: 0;
-	padding: 40px 5px 25px;
+	padding: 40px 5px 10px;
 }
 section {
 	width: 645px;
@@ -241,19 +241,7 @@ li.freezeErr
 	transform: translateX(100%);
 	transition: all .5s;
 }
-.back-main-site {
-	float: left;
-	max-width: 70px;
-	max-height: 70px;
-}
-.back-main-site {
-	padding: 10px;
-}
-.back-main-site img {
-	width: 100%;
-	opacity: .5;
-	transition: all .3s;
-}
-.back-main-site img:hover {
-	opacity: .8;
+.title-game {
+	text-align: center;
+	padding-bottom: 25px;
 }

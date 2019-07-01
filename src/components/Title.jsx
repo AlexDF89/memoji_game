@@ -2,7 +2,10 @@ import React from 'react';
 
 function Title (props) {
   return (
-    <h1>{props.title}</h1>
+    <div className="title-game">
+      <h1>{props.title}</h1>
+      <a href="http://webdev-master.ru">Вернуться на главную</a>
+    </div>
   );
 }
 
