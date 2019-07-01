@@ -241,3 +241,19 @@ li.freezeErr
 	transform: translateX(100%);
 	transition: all .5s;
 }
+.back-main-site {
+	float: left;
+	max-width: 70px;
+	max-height: 70px;
+}
+.back-main-site {
+	padding: 10px;
+}
+.back-main-site img {
+	width: 100%;
+	opacity: .5;
+	transition: all .3s;
+}
+.back-main-site img:hover {
+	opacity: .8;
+}

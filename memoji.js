@@ -9,8 +9,10 @@ app.get('/', (req, res) => {
 	startPage(req, res);
 });
 
-app.get(/\.(css|js)/, (req, res) => {
-	public(req, res);
+app.get(/\.(css|js|jpeg|jpg|png|svg|ico)/, (req, res) => {
+
+  public(req, res);
+  
 });
 
 app.post('/game', (req, res) => {

@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function public(req, res) {
+  
 	const extension = path.extname(req.url);
 	const filename = req.url.slice(1);
 	let contentType = '';
@@ -14,8 +15,23 @@ function public(req, res) {
 			contentType = 'text/css';
 			break;
 		case '.js':
-			contentType = 'text/javascript';
+				contentType = 'text/javascript';
+				break;
+		case '.jpeg':
+				contentType = 'image/jpeg';
+				break;
+		case '.jpg':
+				contentType = 'image/jpeg';
+				break;
+		case '.png':
+			contentType = 'image/png';
 			break;
+		case '.svg':
+			contentType = 'image/svg+xml';
+			break;
+		case '.ico':
+			contentType = 'image/vnd.microsoft.icon';
+		break;
 		default:
 			contentType = 'text/plain';
 	}
