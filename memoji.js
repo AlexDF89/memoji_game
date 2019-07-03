@@ -73,4 +73,4 @@ app.post('/flip', (req, res) => {
 	flipCard(err, cb, clickedCard);
 });
 
-app.listen(3002, console.log("Сервер работает. http://localhost:3002."));
+app.listen(3002, console.log("Сервер работает, порт: http://localhost:3002."));

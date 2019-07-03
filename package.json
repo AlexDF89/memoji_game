@@ -39,8 +39,9 @@
     "webpack-dev-server": "^3.1.10"
   },
   "scripts": {
-    "start": "./node_modules/.bin/nodemon memoji.js",
-    "dev-server": "webpack-dev-server",
+    "start": "node memoji.js",
+    "dev-frontend": "webpack-dev-server",
+    "dev-server": "./node_modules/.bin/nodemon memoji.js",
     "build": "npm run clean && npx webpack --mode=production",
     "clean": "rimraf public"
   },
