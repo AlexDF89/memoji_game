@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "mongoose": "^5.3.13",
     "react": "^16.6.3",
     "react-addons-css-transition-group": "^15.6.2",
